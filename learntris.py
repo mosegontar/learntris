@@ -5,14 +5,17 @@ import sys
 class Grid(object):
 
     def __init__(self):
-        self.board = ['. '*10 for row in range(0,22)]
+        self.board = [[None] * 10 for i in range(22)]
         self.score = 0
         self.lines_clear = 0
 
     def draw_board(self):
 
-        for cell in self.board:
-            print cell
+        current_board = self.board
+        
+        for row in current_board:
+            row = map(lambda cell: '.' if cell == None else y, row)
+            print ' '.join(row)
 
     def given(self):
         self.board = []
@@ -39,10 +42,11 @@ def main():
                 '?n': grid.show_clear_lines}
 
     while True:
-        command = raw_input()
+        command =  raw_input()
         if command == 'q':
             break
         commands[command]()
+        
 
 
 if __name__ == '__main__':
