@@ -20,7 +20,8 @@ class Grid(object):
     def given(self):
         
         for index, row in enumerate(self.board):
-            self.board[index] = [None if cell == '.' else cell for cell in raw_input() if cell != ' ']
+            self.board[index] = [None if cell == '.' else cell 
+                                 for cell in raw_input() if cell != ' ']
 
     def clear(self):
         self.board = [[None] * 10 for i in range(22)]
