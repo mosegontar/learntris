@@ -14,16 +14,16 @@ class Grid(object):
         current_board = self.board
         
         for row in current_board:
-            row = map(lambda cell: '.' if cell == None else y, row)
+            row = map(lambda cell: '.' if cell == None else cell, row)
             print ' '.join(row)
 
     def given(self):
-        self.board = []
-        for row in range(0,22):
-            self.board.append(raw_input())
+        
+        for index, row in enumerate(self.board):
+            self.board[index] = [None if cell == '.' else cell for cell in raw_input() if cell != ' ']
 
     def clear(self):
-        self.board = ['. '*10 for row in range(0,22)]
+        self.board = [[None] * 10 for i in range(22)]
 
     def show_score(self):
         print self.score
@@ -31,15 +31,25 @@ class Grid(object):
     def show_clear_lines(self):
         print self.lines_clear
 
+    def step(self):
+        for index, row in enumerate(self.board):
+            if all(row) and row[0] != None:
+                self.board[index] = [None] * 10
+                self.score += 100
+                self.lines_clear += 1
+
+
+
 def main():
     
     grid = Grid()
 
-    commands = {'p': grid.draw_board, 
-                'g': grid.given, 
-                'c': grid.clear,
+    commands = {'p' : grid.draw_board, 
+                'g' : grid.given, 
+                'c' : grid.clear,
                 '?s': grid.show_score,
-                '?n': grid.show_clear_lines}
+                '?n': grid.show_clear_lines,
+                's' : grid.step}
 
     while True:
         command =  raw_input()
