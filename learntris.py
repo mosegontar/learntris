@@ -2,68 +2,8 @@
 
 import sys
 
-class Grid(object):
-
-    def __init__(self):
-        self.board = [[None] * 10 for i in range(22)]
-        self.score = 0
-        self.lines_clear = 0
-
-    def draw_board(self):
-
-        current_board = self.board
-        
-        for row in current_board:
-            row = map(lambda cell: '.' if cell == None else cell, row)
-            print ' '.join(row)
-
-    def given(self):
-        
-        for index, row in enumerate(self.board):
-            self.board[index] = [None if cell == '.' else cell 
-                                 for cell in raw_input() if cell != ' ']
-
-    def clear(self):
-        self.board = [[None] * 10 for i in range(22)]
-
-    def show_score(self):
-        print self.score
-
-    def show_clear_lines(self):
-        print self.lines_clear
-
-    def step(self):
-        for index, row in enumerate(self.board):
-            if all(row) and row[0] != None:
-                self.board[index] = [None] * 10
-                self.score += 100
-                self.lines_clear += 1
-
-
-
-class Tetramino(object):
-
-    def __init__(self, shape=None):
-
-        self.shape = shape
-
-    def print_tet(self):
-
-        for row in self.shape:
-            row = map(lambda cell: '.' if cell == None else cell, row)
-            print ' '.join(row)
-
-
-
-class I_tet(Tetramino):
-
-    def __init__(self):
-
-        self.shape = [[None, None, None, None],
-                      ['c', 'c', 'c', 'c'],
-                      [None, None, None, None],
-                      [None, None, None, None]]
-
+from grid import Grid
+from tetraminos import *
 
 
 class Operator(object):
@@ -76,15 +16,18 @@ class Operator(object):
     def set_active_set(self, block):
 
         i_tet = I_tet()
+        o_tet = O_tet()
+        z_tet = Z_tet()
         
-        shapes = {'I': i_tet}
+        shapes = {'I': i_tet, 'O': o_tet, 'Z': z_tet}
 
         return shapes[block]
 
+    def signal_parser(self, signal):
+      
+        signals = signal.split()
 
-    def receive_signal(self):
-
-        while True:
+        for s in signals:
 
             commands = {'p' : game.grid.draw_board, 
                         'g' : game.grid.given, 
@@ -94,16 +37,24 @@ class Operator(object):
                         's' : game.grid.step,
                         't' : game.active_tet.print_tet}
 
-            command =  raw_input()
-   
-            if command == 'q':
-                break
-
-            if command.isupper():
-                self.active_tet = self.set_active_set(command)
+            if s == 'q':
+                sys.exit()
+            
+            if s.isupper():
+                self.active_tet = self.set_active_set(s)
             else:
-                commands[command]()
 
+                commands[s]()
+
+
+    def receive_signal(self):
+
+        while True:
+
+            received =  raw_input()
+
+            self.signal_parser(received)
+            
 
 
 if __name__ == '__main__':
