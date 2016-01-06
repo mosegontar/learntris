@@ -41,24 +41,72 @@ class Grid(object):
 
 
 
-def main():
-    
-    grid = Grid()
+class Tetramino(object):
 
-    commands = {'p' : grid.draw_board, 
-                'g' : grid.given, 
-                'c' : grid.clear,
-                '?s': grid.show_score,
-                '?n': grid.show_clear_lines,
-                's' : grid.step}
+    def __init__(self, shape=None):
 
-    while True:
-        command =  raw_input()
-        if command == 'q':
-            break
-        commands[command]()
+        self.shape = shape
+
+    def print_tet(self):
+
+        for row in self.shape:
+            row = map(lambda cell: '.' if cell == None else cell, row)
+            print ' '.join(row)
+
+
+
+class I_tet(Tetramino):
+
+    def __init__(self):
+
+        self.shape = [[None, None, None, None],
+                      ['c', 'c', 'c', 'c'],
+                      [None, None, None, None],
+                      [None, None, None, None]]
+
+
+
+class Operator(object):
+
+    def __init__(self):
+
+        self.grid = Grid()
+        self.active_tet = Tetramino()
+
+    def set_active_set(self, block):
+
+        i_tet = I_tet()
         
+        shapes = {'I': i_tet}
+
+        return shapes[block]
+
+
+    def receive_signal(self):
+
+        while True:
+
+            commands = {'p' : game.grid.draw_board, 
+                        'g' : game.grid.given, 
+                        'c' : game.grid.clear,
+                        '?s': game.grid.show_score,
+                        '?n': game.grid.show_clear_lines,
+                        's' : game.grid.step,
+                        't' : game.active_tet.print_tet}
+
+            command =  raw_input()
+   
+            if command == 'q':
+                break
+
+            if command.isupper():
+                self.active_tet = self.set_active_set(command)
+            else:
+                commands[command]()
+
 
 
 if __name__ == '__main__':
-    main()
+    
+    game = Operator()
+    game.receive_signal()
