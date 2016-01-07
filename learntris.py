@@ -13,7 +13,18 @@ class Operator(object):
         self.grid = Grid()
         self.active_tet = Tetramino()
 
-    def set_active_set(self, block):
+    def spawn_tet(self):
+        
+        left = self.active_tet.spawn
+        right =  left + self.active_tet.size
+        for index, row in enumerate(self.active_tet.shape):
+            row = [let.upper() for let in row if let.isalpha()]
+            game.grid.board[index][left:right] = row
+
+        game.grid.draw_board()
+
+
+    def set_active_tet(self, block):
 
         i_tet = I_tet()
         o_tet = O_tet()
@@ -50,13 +61,14 @@ class Operator(object):
                         's' : game.grid.step,
                         't' : game.active_tet.print_tet,
                         ')' : game.active_tet.rotate_clockwise,
-                        ';' : self.new_line}
+                        ';' : self.new_line,
+                        'P' : self.spawn_tet}
 
             if s == 'q':
                 sys.exit()
             
-            if s.isupper():
-                self.active_tet = self.set_active_set(s)
+            if s.isupper() and s != 'P':
+                self.active_tet = self.set_active_tet(s)
             else:
                 commands[s]()
 

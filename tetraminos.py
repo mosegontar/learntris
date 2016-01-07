@@ -2,11 +2,10 @@
 
 class Tetramino(object):
 
-    def __init__(self, shape=None, size=None):
+    def __init__(self, shape=None, size=0):
 
         self.shape = shape
         self.size = size
-
     def print_tet(self):
 
         if self.shape:
@@ -19,6 +18,12 @@ class Tetramino(object):
     def rotate_clockwise(self):
 
         self.shape = zip(*self.shape[::-1])
+
+    def set_spawn(self):
+
+        return (10 - self.size) / 2 
+
+
 
 
 class I_tet(Tetramino):
@@ -33,13 +38,15 @@ class I_tet(Tetramino):
         self.size = len(self.shape)
 
 
-
 class O_tet(Tetramino):
 
     def __init__(self):
 
         self.shape = [['y', 'y'],
                       ['y', 'y']]
+
+        self.size = len(self.shape)
+        self.spawn =  self.set_spawn()
 
 class Z_tet(Tetramino):
 
@@ -49,6 +56,8 @@ class Z_tet(Tetramino):
                       [None, 'r', 'r'],
                       [None, None, None]]
 
+        self.size = len(self.shape)
+
 class S_tet(Tetramino):
 
     def __init__(self):
@@ -57,21 +66,27 @@ class S_tet(Tetramino):
                       ['g', 'g', None],
                       [None, None, None]]
 
+        self.size = len(self.shape)
+
 class J_tet(Tetramino):
 
     def __init__(self):
 
-        self.shape = [['b', None, None],
-                      ['b', 'b', 'b'],
+        self.shape = [['b',  None, None],
+                      ['b',  'b',   'b'],
                       [None, None, None]]
+
+        self.size = len(self.shape)
 
 class L_tet(Tetramino):
 
     def __init__(self):
 
-        self.shape = [[None, None, 'o'],
-                      ['o', 'o', 'o'],
+        self.shape = [[None, None,  'o'],
+                      ['o',  'o',   'o'],
                       [None, None, None]]
+
+        self.size = len(self.shape)
 
 class T_tet(Tetramino):
 
@@ -81,47 +96,5 @@ class T_tet(Tetramino):
                       ['m', 'm', 'm'],
                       [None, None, None]]
 
-"""
-i = I_tet()
+        self.size = len(self.shape)
 
-first = i
-first.print_tet()
-
-i.shape = zip(*i.shape[::-1])
-print
-i.print_tet()
-print
-
-i.shape = zip(*i.shape[::-1])
-i.print_tet()
-print
-
-i.shape = zip(*i.shape[::-1])
-i.print_tet()
-
-print
-
-i.shape = zip(*i.shape[::-1])
-i.print_tet()
-print
-
-z = Z_tet()
-z.print_tet()
-print
-
-z.shape = zip(*z.shape[::-1])
-z.print_tet()
-print
-
-z.shape = zip(*z.shape[::-1])
-z.print_tet()
-print
-
-z.shape = zip(*z.shape[::-1])
-z.print_tet()
-print
-
-z.shape = zip(*z.shape[::-1])
-z.print_tet()
-print
-"""
