@@ -18,8 +18,18 @@ class Operator(object):
         i_tet = I_tet()
         o_tet = O_tet()
         z_tet = Z_tet()
-        
-        shapes = {'I': i_tet, 'O': o_tet, 'Z': z_tet}
+        s_tet = S_tet()
+        j_tet = J_tet()
+        l_tet = L_tet()
+        t_tet = T_tet()
+
+        shapes = {'I': i_tet, 
+                  'O': o_tet, 
+                  'Z': z_tet, 
+                  'S': s_tet,
+                  'J': j_tet,
+                  'L': l_tet,
+                  'T': t_tet}
 
         return shapes[block]
 
@@ -43,7 +53,6 @@ class Operator(object):
             if s.isupper():
                 self.active_tet = self.set_active_set(s)
             else:
-
                 commands[s]()
 
 
