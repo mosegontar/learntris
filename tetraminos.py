@@ -21,9 +21,6 @@ class Tetramino(object):
         self.shape = zip(*self.shape[::-1])
 
 
-
-
-
 class I_tet(Tetramino):
 
     def __init__(self):

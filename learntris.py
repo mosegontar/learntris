@@ -33,6 +33,9 @@ class Operator(object):
 
         return shapes[block]
 
+    def new_line(self):
+        print
+
     def signal_parser(self, signal):
       
         signals = signal.split()
@@ -46,7 +49,8 @@ class Operator(object):
                         '?n': game.grid.show_clear_lines,
                         's' : game.grid.step,
                         't' : game.active_tet.print_tet,
-                        ')' : game.active_tet.rotate_clockwise}
+                        ')' : game.active_tet.rotate_clockwise,
+                        ';' : self.new_line}
 
             if s == 'q':
                 sys.exit()
