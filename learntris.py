@@ -45,7 +45,8 @@ class Operator(object):
                         '?s': game.grid.show_score,
                         '?n': game.grid.show_clear_lines,
                         's' : game.grid.step,
-                        't' : game.active_tet.print_tet}
+                        't' : game.active_tet.print_tet,
+                        ')' : game.active_tet.rotate_clockwise}
 
             if s == 'q':
                 sys.exit()
