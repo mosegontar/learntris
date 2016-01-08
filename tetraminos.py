@@ -23,7 +23,11 @@ class Tetramino(object):
 
     def rotate_clockwise(self):
 
-        self.shape = zip(*self.shape[::-1])
+        self.shape = [list(row) for row in zip(*self.shape[::-1])]
+
+    def rotate_counter_clockwise(self):
+
+        self.shape = [list(row) for row in zip(*self.shape)[::-1]]
 
     def set_coordinates(self):
 
@@ -35,10 +39,11 @@ class Tetramino(object):
 
     def move_tet_west(self):
 
-        if self.west == 0:
+        western_edges = [cell[0] for cell in self.shape]
 
-            self.west = 0
-            self.east = self.east
+        if self.west == 0 and any(western_edges):
+
+            pass
 
         else:
 
@@ -48,10 +53,11 @@ class Tetramino(object):
 
     def move_tet_east(self):
 
-        if self.east == 10:
+        eastern_edges = [cell[-1] for cell in self.shape]
 
-            self.east = 10
-            self.west = self.west
+        if self.east == 10 and any(eastern_edges):
+
+            pass
         
         else:
 

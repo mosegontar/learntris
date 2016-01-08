@@ -62,14 +62,17 @@ class Operator(object):
       
         signals = signal.split()
 
-        if len(signals) == 1 and not(signals[0] == '?s' or signals[0] == '?n'):
+        if len(signals) == 1 and not (signals[0] == '?s' or signals[0] == '?n'):
             signals = signals[0]
         else:
             pass
 
         for s in signals:
 
-            commands = {'p' : game.grid.draw_board, 
+
+
+            commands = {'p' : game.grid.draw_board,
+                        'q' : sys.exit, 
                         'g' : game.grid.given, 
                         'c' : game.grid.clear,
                         '?s': game.grid.show_score,
@@ -77,17 +80,20 @@ class Operator(object):
                         's' : game.grid.step,
                         't' : game.active_tet.print_tet,
                         ')' : game.active_tet.rotate_clockwise,
+                        '(' : game.active_tet.rotate_counter_clockwise,
                         ';' : self.new_line,
                         'P' : self.spawn_tet,
                         '<' : game.active_tet.move_tet_west,
                         '>' : game.active_tet.move_tet_east,
                         'v' : game.active_tet.move_tet_south}
 
-            if s == 'q':
-                sys.exit()
-            
             if s.isupper() and s != 'P':
                 self.active_tet = self.set_active_tet(s)
+
+            elif len(s) > 1 and not (s == '?s' or s == '?n'):
+                for char in s:
+                    s = char
+                    commands[s]()
             else:
                 commands[s]()
 
