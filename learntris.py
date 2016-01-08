@@ -59,6 +59,12 @@ class Operator(object):
       
         signals = signal.split()
 
+        if len(signals) == 1 and not(signals[0] == '?s' or signals[0] == '?n'):
+
+            signals = signals[0]
+
+
+
         for s in signals:
 
             commands = {'p' : game.grid.draw_board, 

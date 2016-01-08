@@ -38,6 +38,7 @@ class I_tet(Tetramino):
                       [None, None, None, None]]
 
         self.size = len(self.shape)
+        self.spawn = self.set_spawn()
 
 
 class O_tet(Tetramino):
