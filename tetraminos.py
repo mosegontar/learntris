@@ -43,7 +43,7 @@ class Tetramino(object):
         self.west = self.west + 1
         self.east = self.east + 1
 
-    def set_south():
+    def move_tet_south(self):
 
         self.south = self.south + 1
 

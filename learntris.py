@@ -26,11 +26,11 @@ class Operator(object):
             for num, cell in enumerate(row):
                 
                 if cell:
-                    row[num+south] = cell.upper()
+                    row[num] = cell.upper()
                     self.active_tet.shape[index][num] = cell.upper()
 
 
-            game.grid.board[index][west:east] = row
+            game.grid.board[index+south][west:east] = row
 
         game.grid.draw_board()
 
@@ -80,7 +80,8 @@ class Operator(object):
                         ';' : self.new_line,
                         'P' : self.spawn_tet,
                         '<' : game.active_tet.move_tet_west,
-                        '>' : game.active_tet.move_tet_east}
+                        '>' : game.active_tet.move_tet_east,
+                        'v' : game.active_tet.move_tet_south}
 
             if s == 'q':
                 sys.exit()
