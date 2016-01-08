@@ -15,8 +15,8 @@ class Operator(object):
 
     def spawn_tet(self):
         
-        left = self.active_tet.spawn
-        right =  left + self.active_tet.size
+        west = self.active_tet.west
+        east = self.active_tet.east
 
         for index, row in enumerate(self.active_tet.shape):
             
@@ -27,7 +27,7 @@ class Operator(object):
                     self.active_tet.shape[index][num] = cell.upper()
 
 
-            game.grid.board[index][left:right] = row
+            game.grid.board[index][west:east] = row
 
         game.grid.draw_board()
 
@@ -60,10 +60,9 @@ class Operator(object):
         signals = signal.split()
 
         if len(signals) == 1 and not(signals[0] == '?s' or signals[0] == '?n'):
-
             signals = signals[0]
-
-
+        else:
+            pass
 
         for s in signals:
 

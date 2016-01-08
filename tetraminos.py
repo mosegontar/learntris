@@ -4,10 +4,13 @@ from grid import Grid
 
 class Tetramino(object):
 
-    def __init__(self, shape=None, size=0):
+    def __init__(self, shape=None, size=0, west=0, east=0):
 
         self.shape = shape
         self.size = size
+        self.west = west
+        self.east = east
+
     def print_tet(self):
 
         if self.shape:
@@ -21,9 +24,16 @@ class Tetramino(object):
 
         self.shape = zip(*self.shape[::-1])
 
-    def set_spawn(self):
+    def set_coordinates(self):
 
-        return (10 - self.size) / 2 
+        self.west = (10 - self.size) / 2
+        self.east = self.west + self.size
+
+        return (self.west, self.east)
+
+    def change_coordinates(self, direction, amount):
+
+        if direction == ''
 
 
 
@@ -38,7 +48,10 @@ class I_tet(Tetramino):
                       [None, None, None, None]]
 
         self.size = len(self.shape)
-        self.spawn = self.set_spawn()
+
+        coordinates = self.set_coordinates()
+        self.west = coordinates[0]
+        self.east = coordinates[1]
 
 
 class O_tet(Tetramino):
@@ -49,7 +62,10 @@ class O_tet(Tetramino):
                       ['y', 'y']]
 
         self.size = len(self.shape)
-        self.spawn =  self.set_spawn()
+
+        coordinates = self.set_coordinates()
+        self.west = coordinates[0]
+        self.east = coordinates[1]
 
 class Z_tet(Tetramino):
 
@@ -60,7 +76,10 @@ class Z_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
-        self.spawn = self.set_spawn()
+
+        coordinates = self.set_coordinates()
+        self.west = coordinates[0]
+        self.east = coordinates[1]
 
 class S_tet(Tetramino):
 
@@ -71,7 +90,10 @@ class S_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
-        self.spawn = self.set_spawn()
+
+        coordinates = self.set_coordinates()
+        self.west = coordinates[0]
+        self.east = coordinates[1]
 
 class J_tet(Tetramino):
 
@@ -82,7 +104,10 @@ class J_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
-        self.spawn = self.set_spawn()
+
+        coordinates = self.set_coordinates()
+        self.west = coordinates[0]
+        self.east = coordinates[1]
 
 class L_tet(Tetramino):
 
@@ -93,7 +118,10 @@ class L_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
-        self.spawn = self.set_spawn()
+
+        coordinates = self.set_coordinates()
+        self.west = coordinates[0]
+        self.east = coordinates[1]
 
 class T_tet(Tetramino):
 
@@ -104,5 +132,7 @@ class T_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
-        self.spawn =self.set_spawn()
 
+        coordinates = self.set_coordinates()
+        self.west = coordinates[0]
+        self.east = coordinates[1]
