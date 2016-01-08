@@ -35,13 +35,28 @@ class Tetramino(object):
 
     def move_tet_west(self):
 
-        self.west = self.west - 1
-        self.east = self.east - 1
+        if self.west == 0:
+
+            self.west = 0
+            self.east = self.east
+
+        else:
+
+            self.west = self.west - 1
+            self.east = self.east - 1
+
 
     def move_tet_east(self):
 
-        self.west = self.west + 1
-        self.east = self.east + 1
+        if self.east == 10:
+
+            self.east = 10
+            self.west = self.west
+        
+        else:
+
+            self.west = self.west + 1
+            self.east = self.east + 1
 
     def move_tet_south(self):
 
