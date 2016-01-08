@@ -12,7 +12,7 @@ class Grid(object):
         current_board = self.board
         
         for row in current_board:
-            row = map(lambda cell: '.' if cell == None else cell, row)
+            row = [cell or '.' for cell in row]
             print ' '.join(row)
 
     def given(self):
