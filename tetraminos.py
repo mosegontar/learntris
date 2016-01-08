@@ -31,13 +31,17 @@ class Tetramino(object):
 
         return (self.west, self.east)
 
-    def change_coordinates(self, direction, amount):
+    def move_tet_left(self):
 
-        if direction == ''
+        self.west = self.west - 1
+        self.east = self.east - 1
 
+    def move_tet_right(self):
 
+        self.west = self.west + 1
+        self.east = self.east + 1
 
-
+         
 class I_tet(Tetramino):
 
     def __init__(self):

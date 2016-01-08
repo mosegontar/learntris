@@ -13,6 +13,7 @@ class Operator(object):
         self.grid = Grid()
         self.active_tet = Tetramino()
 
+
     def spawn_tet(self):
         
         west = self.active_tet.west
@@ -75,7 +76,9 @@ class Operator(object):
                         't' : game.active_tet.print_tet,
                         ')' : game.active_tet.rotate_clockwise,
                         ';' : self.new_line,
-                        'P' : self.spawn_tet}
+                        'P' : self.spawn_tet,
+                        '<' : game.active_tet.move_tet_left,
+                        '>' : game.active_tet.move_tet_right}
 
             if s == 'q':
                 sys.exit()
