@@ -55,7 +55,7 @@ class Tetramino(object):
 
         eastern_edges = [cell[-1] for cell in self.shape]
 
-        if self.east == 10 and any(eastern_edges):
+        if self.east >= 10 and any(eastern_edges):
 
             pass
         

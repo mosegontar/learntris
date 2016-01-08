@@ -20,17 +20,15 @@ class Operator(object):
         east  = self.active_tet.east
         south = self.active_tet.south
 
-
-        for index, row in enumerate(self.active_tet.shape):
+        for index, width in enumerate(self.active_tet.shape):
             
-            for num, cell in enumerate(row):
+            for num, cell in enumerate(width):
                 
                 if cell:
-                    row[num] = cell.upper()
+                    width[num] = cell.upper()
                     self.active_tet.shape[index][num] = cell.upper()
 
-
-            game.grid.board[index+south][west:east] = row
+            game.grid.board[index+south][west:east] = width
 
         game.grid.draw_board()
 
@@ -100,9 +98,9 @@ class Operator(object):
 
     def receive_signal(self):
 
-        while True:
+        #while True:
 
-            received =  raw_input()
+            received =  "T ( >>>> > Pq" #raw_input()
 
             self.signal_parser(received)
             
