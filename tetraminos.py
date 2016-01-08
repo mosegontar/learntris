@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from grid import Grid
+
 class Tetramino(object):
 
     def __init__(self, shape=None, size=0):
@@ -57,6 +59,7 @@ class Z_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
+        self.spawn = self.set_spawn()
 
 class S_tet(Tetramino):
 
@@ -67,6 +70,7 @@ class S_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
+        self.spawn = self.set_spawn()
 
 class J_tet(Tetramino):
 
@@ -77,6 +81,7 @@ class J_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
+        self.spawn = self.set_spawn()
 
 class L_tet(Tetramino):
 
@@ -87,6 +92,7 @@ class L_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
+        self.spawn = self.set_spawn()
 
 class T_tet(Tetramino):
 
@@ -97,4 +103,5 @@ class T_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
+        self.spawn =self.set_spawn()
 

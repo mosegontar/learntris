@@ -17,8 +17,16 @@ class Operator(object):
         
         left = self.active_tet.spawn
         right =  left + self.active_tet.size
+
         for index, row in enumerate(self.active_tet.shape):
-            row = [let.upper() for let in row if let.isalpha()]
+            
+            for num, cell in enumerate(row):
+                
+                if cell:
+                    row[num] = cell.upper()
+                    self.active_tet.shape[index][num] = cell.upper()
+
+
             game.grid.board[index][left:right] = row
 
         game.grid.draw_board()
