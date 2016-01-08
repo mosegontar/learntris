@@ -4,12 +4,13 @@ from grid import Grid
 
 class Tetramino(object):
 
-    def __init__(self, shape=None, size=0, west=0, east=0):
+    def __init__(self, shape=None, size=0, west=0, east=0, south=0):
 
         self.shape = shape
         self.size = size
         self.west = west
         self.east = east
+        self.south = south 
 
     def print_tet(self):
 
@@ -28,18 +29,24 @@ class Tetramino(object):
 
         self.west = (10 - self.size) / 2
         self.east = self.west + self.size
+        self.south = 0
 
-        return (self.west, self.east)
+        return (self.west, self.east, self.south)
 
-    def move_tet_left(self):
+    def move_tet_west(self):
 
         self.west = self.west - 1
         self.east = self.east - 1
 
-    def move_tet_right(self):
+    def move_tet_east(self):
 
         self.west = self.west + 1
         self.east = self.east + 1
+
+    def set_south():
+
+        self.south = self.south + 1
+
 
          
 class I_tet(Tetramino):
@@ -54,8 +61,9 @@ class I_tet(Tetramino):
         self.size = len(self.shape)
 
         coordinates = self.set_coordinates()
-        self.west = coordinates[0]
-        self.east = coordinates[1]
+        self.west  = coordinates[0]
+        self.east  = coordinates[1]
+        self.south = coordinates[2]
 
 
 class O_tet(Tetramino):
@@ -70,6 +78,7 @@ class O_tet(Tetramino):
         coordinates = self.set_coordinates()
         self.west = coordinates[0]
         self.east = coordinates[1]
+        self.south = coordinates[2]
 
 class Z_tet(Tetramino):
 
@@ -84,6 +93,7 @@ class Z_tet(Tetramino):
         coordinates = self.set_coordinates()
         self.west = coordinates[0]
         self.east = coordinates[1]
+        self.south = coordinates[2]
 
 class S_tet(Tetramino):
 
@@ -98,6 +108,8 @@ class S_tet(Tetramino):
         coordinates = self.set_coordinates()
         self.west = coordinates[0]
         self.east = coordinates[1]
+        self.south = coordinates[2]
+
 
 class J_tet(Tetramino):
 
@@ -112,6 +124,7 @@ class J_tet(Tetramino):
         coordinates = self.set_coordinates()
         self.west = coordinates[0]
         self.east = coordinates[1]
+        self.south = coordinates[2]
 
 class L_tet(Tetramino):
 
@@ -126,6 +139,7 @@ class L_tet(Tetramino):
         coordinates = self.set_coordinates()
         self.west = coordinates[0]
         self.east = coordinates[1]
+        self.south = coordinates[2]
 
 class T_tet(Tetramino):
 
@@ -140,3 +154,4 @@ class T_tet(Tetramino):
         coordinates = self.set_coordinates()
         self.west = coordinates[0]
         self.east = coordinates[1]
+        self.south = coordinates[2]

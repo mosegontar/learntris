@@ -16,15 +16,17 @@ class Operator(object):
 
     def spawn_tet(self):
         
-        west = self.active_tet.west
-        east = self.active_tet.east
+        west  = self.active_tet.west
+        east  = self.active_tet.east
+        south = self.active_tet.south
+
 
         for index, row in enumerate(self.active_tet.shape):
             
             for num, cell in enumerate(row):
                 
                 if cell:
-                    row[num] = cell.upper()
+                    row[num+south] = cell.upper()
                     self.active_tet.shape[index][num] = cell.upper()
 
 
@@ -77,8 +79,8 @@ class Operator(object):
                         ')' : game.active_tet.rotate_clockwise,
                         ';' : self.new_line,
                         'P' : self.spawn_tet,
-                        '<' : game.active_tet.move_tet_left,
-                        '>' : game.active_tet.move_tet_right}
+                        '<' : game.active_tet.move_tet_west,
+                        '>' : game.active_tet.move_tet_east}
 
             if s == 'q':
                 sys.exit()
