@@ -14,6 +14,8 @@ class Operator(object):
         self.active_tet = Tetramino()
 
 
+    #def shave_sides 
+
     def spawn_tet(self):
         
         west  = self.active_tet.west
@@ -21,7 +23,7 @@ class Operator(object):
         south = self.active_tet.south
 
         for index, width in enumerate(self.active_tet.shape):
-            
+
             for num, cell in enumerate(width):
                 
                 if cell:
@@ -90,17 +92,22 @@ class Operator(object):
 
             elif len(s) > 1 and not (s == '?s' or s == '?n'):
                 for char in s:
+
                     s = char
-                    commands[s]()
+                    
+                    if s.isupper() and s != 'P':
+                        self.active_tet = self.set_active_tet(s)
+                    else:
+                        commands[s]()
             else:
                 commands[s]()
 
 
     def receive_signal(self):
 
-        #while True:
+        while True:
 
-            received =  "T ( >>>> > Pq" #raw_input()
+            received =  raw_input()
 
             self.signal_parser(received)
             

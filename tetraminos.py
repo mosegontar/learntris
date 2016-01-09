@@ -45,6 +45,14 @@ class Tetramino(object):
 
             pass
 
+        elif self.west == 0 and not any(western_edges):
+
+            for row in self.shape:
+                row.pop(0)
+
+            self.west = self.west - 1
+            self.east = self.east - 1            
+
         else:
 
             self.west = self.west - 1
@@ -55,18 +63,41 @@ class Tetramino(object):
 
         eastern_edges = [cell[-1] for cell in self.shape]
 
-        if self.east >= 10 and any(eastern_edges):
+        if self.east == 10 and any(eastern_edges):
 
             pass
         
+        elif self.east == 10 and not any(eastern_edges):
+
+            for row in self.shape:
+                row.pop(2)
+
+            self.west = self.west + 1
+            self.east = self.east + 1
+
         else:
 
             self.west = self.west + 1
             self.east = self.east + 1
 
+
     def move_tet_south(self):
 
-        self.south = self.south + 1
+        southern_bordern = self.shape[-1]
+
+        if self.south + self.size >= 22 and any(southern_bordern):
+        
+            pass
+
+        elif self.south + self.size >= 22 and not any(southern_bordern):
+
+            self.shape.pop(-1)
+
+            self.south = self.south + 1
+
+        else:
+
+            self.south = self.south + 1
 
 
          
