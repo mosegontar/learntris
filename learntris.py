@@ -14,7 +14,35 @@ class Operator(object):
         self.active_tet = Tetramino()
 
 
-    #def shave_sides 
+
+    def display(self, active_tet=False):
+
+        west  = self.active_tet.west
+        east  = self.active_tet.east
+        south = self.active_tet.south
+
+        if not active_tet:
+
+
+            if self.active_tet.shape:
+
+                for index, row in enumerate(self.active_tet.shape):
+                    """
+                    for num, cell in enumerate(row):
+
+                        if cell:
+                            self.active_tet.shape[index][num] = cell.lower()
+                    """
+                    game.grid.board[index+south][west:east] = row
+
+            else:
+                pass
+
+            game.grid.draw_board()
+
+        else:
+
+            game.grid.draw_board()
 
     def spawn_tet(self):
         
@@ -22,17 +50,16 @@ class Operator(object):
         east  = self.active_tet.east
         south = self.active_tet.south
 
-        for index, width in enumerate(self.active_tet.shape):
+        for index, row in enumerate(self.active_tet.shape):
 
-            for num, cell in enumerate(width):
+            for num, cell in enumerate(row):
                 
                 if cell:
-                    width[num] = cell.upper()
                     self.active_tet.shape[index][num] = cell.upper()
 
-            game.grid.board[index+south][west:east] = width
+            game.grid.board[index+south][west:east] = row
 
-        game.grid.draw_board()
+        self.display(True)
 
 
     def set_active_tet(self, block):
@@ -71,7 +98,7 @@ class Operator(object):
 
 
 
-            commands = {'p' : game.grid.draw_board,
+            commands = {'p' : self.display,
                         'q' : sys.exit, 
                         'g' : game.grid.given, 
                         'c' : game.grid.clear,
@@ -85,19 +112,24 @@ class Operator(object):
                         'P' : self.spawn_tet,
                         '<' : game.active_tet.move_tet_west,
                         '>' : game.active_tet.move_tet_east,
-                        'v' : game.active_tet.move_tet_south}
+                        'v' : game.active_tet.move_tet_south,
+                        'V' : game.active_tet.hard_drop}
 
-            if s.isupper() and s != 'P':
+            if s.isupper() and not (s == 'P' or s == 'V'):
+
                 self.active_tet = self.set_active_tet(s)
 
             elif len(s) > 1 and not (s == '?s' or s == '?n'):
+
                 for char in s:
 
                     s = char
                     
-                    if s.isupper() and s != 'P':
+                    if s.isupper() and not (s == 'P' or s == 'V'):
+
                         self.active_tet = self.set_active_tet(s)
                     else:
+
                         commands[s]()
             else:
                 commands[s]()

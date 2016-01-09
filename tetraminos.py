@@ -99,6 +99,11 @@ class Tetramino(object):
 
             self.south = self.south + 1
 
+    def hard_drop(self):
+
+        while self.south + self.size <= 22:
+
+            self.move_tet_south()
 
          
 class I_tet(Tetramino):
