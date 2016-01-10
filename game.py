@@ -9,10 +9,98 @@ class Game(object):
 
         self.grid = Grid()
         self.active_tet = Tetramino()
-        self.set_tets = False
         self.west  = None
         self.east  = None
         self.south = None
+
+    def move_tet_west(self):
+
+        western_edges = [cell[0] for cell in self.active_tet.shape]
+
+        if self.active_tet.west == 0 and any(western_edges):
+
+            pass
+
+        elif self.active_tet.west == 0 and not any(western_edges):
+
+            for index, row in enumerate(self.active_tet.shape):
+                self.active_tet.shape[index].pop(0)
+
+
+            self.active_tet.west = self.active_tet.west - 1
+            self.active_tet.east = self.active_tet.east - 1            
+
+        elif len(self.active_tet.shape[0]) != self.active_tet.size:
+
+            for index, row in enumerate(self.active_tet.shape):
+                self.active_tet.shape[index].append(None)
+
+            self.active_tet.west = self.active_tet.west - 1
+            self.active_tet.east = self.active_tet.east - 1
+
+
+        else:
+            self.active_tet.west = self.active_tet.west - 1
+            self.active_tet.east = self.active_tet.east - 1
+
+
+    def move_tet_east(self):
+
+        eastern_edges = [cell[-1] for cell in self.active_tet.shape]
+
+        if self.active_tet.east >= 10 and any(eastern_edges):
+
+            pass
+        
+        elif self.active_tet.east >= 10 and not any(eastern_edges):
+
+            for index, row in enumerate(self.active_tet.shape):
+                self.active_tet.shape[index].pop(2)
+
+            self.active_tet.west = self.active_tet.west + 1
+            self.active_tet.east = self.active_tet.east + 1
+
+        elif len(self.active_tet.shape[0]) != self.active_tet.size:
+
+            for index, row in enumerate(self.active_tet.shape):
+                self.active_tet.shape[index].insert(0, None)
+            
+            self.active_tet.west = self.active_tet.west + 1
+            self.active_tet.east = self.active_tet.east + 1
+
+        else:
+            self.active_tet.west = self.active_tet.west + 1
+            self.active_tet.east = self.active_tet.east + 1
+
+
+    def move_tet_south(self):
+
+        southern_border = self.active_tet.shape[-1]
+
+        if self.active_tet.south + len(self.active_tet.shape) > 21 and any(southern_border):
+        
+            pass
+
+        elif self.active_tet.south + len(self.active_tet.shape) == 21 and not any(southern_border):
+
+            self.active_tet.shape.pop(-1)
+
+            self.active_tet.south = self.active_tet.south + 1
+
+        else:
+
+            self.active_tet.south = self.active_tet.south + 1    
+
+    def hard_drop(self):
+
+        #self.get_coordinates()
+
+        distance_to_floor = 25 - self.active_tet.south - len(self.active_tet.shape)
+
+        while self.active_tet.south + len(self.active_tet.shape) != distance_to_floor:
+
+            self.move_tet_south()
+
 
     def get_coordinates(self):
 
@@ -49,7 +137,6 @@ class Game(object):
     def place_tets(self):
 
         self.set_board('lower')
-        self.set_tets = True        
 
     def set_active_tet(self, block):
 

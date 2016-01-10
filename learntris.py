@@ -44,10 +44,10 @@ class Operator(object):
                         '(' : game.active_tet.rotate_counter_clockwise,
                         ';' : self.new_line,
                         'P' : self.spawn,
-                        '<' : game.active_tet.move_tet_west,
-                        '>' : game.active_tet.move_tet_east,
-                        'v' : game.active_tet.move_tet_south,
-                        'V' : game.active_tet.hard_drop}
+                        '<' : game.move_tet_west,
+                        '>' : game.move_tet_east,
+                        'v' : game.move_tet_south,
+                        'V' : game.hard_drop}
 
             if s.isupper() and not (s == 'V' or s == 'P'):
                 game.active_tet = game.set_active_tet(s)
@@ -64,6 +64,7 @@ class Operator(object):
         e = "cT <<< Pq"
         f = "TV Zv Pq"
         g = "c O P q"
+        h = "T ( >>>> > Pq"
         
         while True:
 
