@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from grid import Grid
 
 class Tetramino(object):
 
@@ -53,8 +52,16 @@ class Tetramino(object):
             self.west = self.west - 1
             self.east = self.east - 1            
 
-        else:
+        elif len(self.shape[0]) != self.size:
 
+            for index, row in enumerate(self.shape):
+                self.shape[index].append(None)
+
+            self.west = self.west - 1
+            self.east = self.east - 1
+
+
+        else:
             self.west = self.west - 1
             self.east = self.east - 1
 
@@ -63,7 +70,7 @@ class Tetramino(object):
 
         eastern_edges = [cell[-1] for cell in self.shape]
 
-        if self.east == 10 and any(eastern_edges):
+        if self.east >= 10 and any(eastern_edges):
 
             pass
         
@@ -85,11 +92,11 @@ class Tetramino(object):
 
         southern_bordern = self.shape[-1]
 
-        if self.south + self.size >= 22 and any(southern_bordern):
+        if self.south + self.size > 22 and any(southern_bordern):
         
             pass
 
-        elif self.south + self.size >= 22 and not any(southern_bordern):
+        elif self.south + self.size == 21 and not any(southern_bordern):
 
             self.shape.pop(-1)
 
@@ -101,9 +108,12 @@ class Tetramino(object):
 
     def hard_drop(self):
 
-        while self.south + self.size <= 22:
+        distance_to_floor = 23 - (self.south + len(self.shape))
+
+        for i in range(distance_to_floor):
 
             self.move_tet_south()
+
 
          
 class I_tet(Tetramino):
