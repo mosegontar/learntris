@@ -16,7 +16,6 @@ class Operator(object):
     def spawn(self):
 
         game.set_board('upper')
-
         game.grid.draw_board()
 
     def new_line(self):
@@ -65,6 +64,7 @@ class Operator(object):
         f = "TV Zv Pq"
         g = "c O P q"
         h = "T ( >>>> > Pq"
+        i = "cTvPq"
         
         while True:
 

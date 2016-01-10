@@ -13,6 +13,19 @@ class Game(object):
         self.east  = None
         self.south = None
 
+    def check_for_collisions(self):
+        
+        southern_most_row = self.active_tet.south + len(self.active_tet.shape) - 1
+        southern_border = self.active_tet.shape[-1]
+
+        if any(self.grid.board[southern_most_row][self.west:self.east]):
+
+            if not any(southern_border):
+
+                self.active_tet.shape.pop(-1)
+            else:
+                return True
+
     def move_tet_west(self):
 
         western_edges = [cell[0] for cell in self.active_tet.shape]
@@ -84,12 +97,13 @@ class Game(object):
         elif self.active_tet.south + len(self.active_tet.shape) == 21 and not any(southern_border):
 
             self.active_tet.shape.pop(-1)
-
             self.active_tet.south = self.active_tet.south + 1
 
         else:
-
             self.active_tet.south = self.active_tet.south + 1    
+            collision = self.check_for_collisions()
+            if collision:
+                self.active_tet.south = self.active_tet.south - 1
 
     def hard_drop(self):
 
@@ -97,8 +111,9 @@ class Game(object):
 
         distance_to_floor = 25 - self.active_tet.south - len(self.active_tet.shape)
 
-        while self.active_tet.south + len(self.active_tet.shape) != distance_to_floor:
-
+        count = 0
+        while count != distance_to_floor:
+            count += 1
             self.move_tet_south()
 
 
@@ -118,7 +133,6 @@ class Game(object):
                 self.active_tet.west = 0
                 self.active_tet.east = self.active_tet.west + len(self.active_tet.shape[0])
                 self.get_coordinates()
-
 
             for index, row in enumerate(self.active_tet.shape):
 
