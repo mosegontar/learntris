@@ -9,13 +9,13 @@ class Operator(object):
 
     def display(self):
 
-        game.update()
+        game.set_board('lower')
 
         game.grid.draw_board()
 
     def spawn(self):
 
-        game.spawn_tet()
+        game.set_board('upper')
 
         game.grid.draw_board()
 
@@ -26,6 +26,7 @@ class Operator(object):
         
         if signal == '?s' or signal == '?n':
             signals = [signal]
+
         else:
             signals = [s for s in signal if s != ' ']
 
@@ -58,9 +59,11 @@ class Operator(object):
 
         a = "cT vvvv vvvv vvvv vvvv vvvv vvvv Pq"
         b = "TVpq"
-        c = "T(V pq"
+        c = "T)V pq"
         d = "cL >>>> ( >> <>>>< ( > )>>< vvpq"
         e = "cT <<< Pq"
+        f = "TV Zv Pq"
+        g = "c O P q"
         
         while True:
 

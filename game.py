@@ -9,54 +9,52 @@ class Game(object):
 
         self.grid = Grid()
         self.active_tet = Tetramino()
+        self.set_tets = False
+        self.west  = None
+        self.east  = None
+        self.south = None
 
-    def spawn_tet(self):
+    def get_coordinates(self):
+
+        self.west = self.active_tet.west
+        self.east = self.active_tet.east
+        self.south = self.active_tet.south
+
+    def set_board(self, case_change):
+
+        self.get_coordinates()
+
+        if self.active_tet.shape:
         
-        west  = self.active_tet.west
-        east  = self.active_tet.east
-        south = self.active_tet.south
+            if self.west < 0:
+                self.active_tet.west = 0
+                self.active_tet.east = self.active_tet.west + len(self.active_tet.shape[0])
+                self.get_coordinates()
 
-        if west < 0:
-            west = 0
-            east = west + len(self.active_tet.shape[0])
-
-        for index, row in enumerate(self.active_tet.shape):
-
-            for num, cell in enumerate(row):
-                
-                if cell:
-                    self.active_tet.shape[index][num] = cell.upper()
-
-            self.grid.board[index+south][west:east] = row
-
-    def update(self, active_tet=False):
-
-        west  = self.active_tet.west
-        east  = self.active_tet.east
-
-
-
-        if self.active_tet.shape:
-            if len(self.active_tet.shape) != self.active_tet.size:
-                south = self.active_tet.south
-            else:
-                south = self.active_tet.south - 1
-
-        if self.active_tet.shape:
 
             for index, row in enumerate(self.active_tet.shape):
-                
+
                 for num, cell in enumerate(row):
-
-                    if cell:
+                    
+                    if cell and case_change == 'lower':
                         self.active_tet.shape[index][num] = cell.lower()
-                
-                self.grid.board[index+south][west:east] = row
+                    elif cell:
+                        self.active_tet.shape[index][num] = cell.upper()
+                    else:
+                        pass
 
-        else:
-            pass
+                self.grid.board[index+self.south][self.west:self.east] = row
+
+
+    def place_tets(self):
+
+        self.set_board('lower')
+        self.set_tets = True        
 
     def set_active_tet(self, block):
+
+        if self.active_tet:
+            self.place_tets()
 
         i_tet = I_tet()
         o_tet = O_tet()

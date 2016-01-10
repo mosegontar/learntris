@@ -48,7 +48,7 @@ class Tetramino(object):
 
             for index, row in enumerate(self.shape):
                 self.shape[index].pop(0)
-            
+
 
             self.west = self.west - 1
             self.east = self.east - 1            
@@ -99,13 +99,13 @@ class Tetramino(object):
 
     def move_tet_south(self):
 
-        southern_bordern = self.shape[-1]
+        southern_border = self.shape[-1]
 
-        if self.south + self.size > 22 and any(southern_bordern):
+        if self.south + len(self.shape) > 21 and any(southern_border):
         
             pass
 
-        elif self.south + self.size == 21 and not any(southern_bordern):
+        elif self.south + len(self.shape) == 21 and not any(southern_border):
 
             self.shape.pop(-1)
 
@@ -117,14 +117,13 @@ class Tetramino(object):
 
     def hard_drop(self):
 
-        distance_to_floor = 23 - (self.south + len(self.shape))
+        distance_to_floor = 25 - self.south - len(self.shape)
 
-        for i in range(distance_to_floor):
+        while self.south + len(self.shape) != distance_to_floor:
 
             self.move_tet_south()
 
 
-         
 class I_tet(Tetramino):
 
     def __init__(self):
