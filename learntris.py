@@ -59,13 +59,14 @@ class Operator(object):
         a = "cT vvvv vvvv vvvv vvvv vvvv vvvv Pq"
         b = "TVpq"
         c = "T(V pq"
-        d = "cT >>>> ( >> <>>>< ( > )>> Pq"
+        d = "cL >>>> ( >> <>>>< ( > )>>< vvpq"
+        e = "cT <<< Pq"
         
-        #while True:
+        while True:
 
-        received = d #raw_input()
+            received = raw_input()
 
-        self.signal_parser(received)
+            self.signal_parser(received)
         
 
 

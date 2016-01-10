@@ -16,6 +16,10 @@ class Game(object):
         east  = self.active_tet.east
         south = self.active_tet.south
 
+        if west < 0:
+            west = 0
+            east = west + len(self.active_tet.shape[0])
+
         for index, row in enumerate(self.active_tet.shape):
 
             for num, cell in enumerate(row):
@@ -29,6 +33,8 @@ class Game(object):
 
         west  = self.active_tet.west
         east  = self.active_tet.east
+
+
 
         if self.active_tet.shape:
             if len(self.active_tet.shape) != self.active_tet.size:

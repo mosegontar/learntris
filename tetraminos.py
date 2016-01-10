@@ -46,8 +46,9 @@ class Tetramino(object):
 
         elif self.west == 0 and not any(western_edges):
 
-            for row in self.shape:
-                row.pop(0)
+            for index, row in enumerate(self.shape):
+                self.shape[index].pop(0)
+            
 
             self.west = self.west - 1
             self.east = self.east - 1            
@@ -79,6 +80,14 @@ class Tetramino(object):
             for row in self.shape:
                 row.pop(2)
 
+            self.west = self.west + 1
+            self.east = self.east + 1
+
+        elif len(self.shape[0]) != self.size:
+
+            for index, row in enumerate(self.shape):
+                self.shape[index].insert(0, None)
+            
             self.west = self.west + 1
             self.east = self.east + 1
 
