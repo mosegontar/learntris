@@ -27,12 +27,12 @@ class Operator(object):
             if self.active_tet.shape:
 
                 for index, row in enumerate(self.active_tet.shape):
-                    """
+                    
                     for num, cell in enumerate(row):
 
                         if cell:
                             self.active_tet.shape[index][num] = cell.lower()
-                    """
+                    
                     game.grid.board[index+south][west:east] = row
 
             else:
@@ -86,19 +86,15 @@ class Operator(object):
         print
 
     def signal_parser(self, signal):
-      
-        signals = signal.split()
-
-        if len(signals) == 1 and not (signals[0] == '?s' or signals[0] == '?n'):
-            signals = signals[0]
+        
+        if signal == '?s' or signal == '?n':
+            signals = [signal]
         else:
-            pass
+            signals = [s for s in signal if s != ' ']
 
         for s in signals:
 
-
-
-            commands = {'p' : self.display,
+            commands = {'p' : game.display,
                         'q' : sys.exit, 
                         'g' : game.grid.given, 
                         'c' : game.grid.clear,
@@ -108,29 +104,15 @@ class Operator(object):
                         't' : game.active_tet.print_tet,
                         ')' : game.active_tet.rotate_clockwise,
                         '(' : game.active_tet.rotate_counter_clockwise,
-                        ';' : self.new_line,
-                        'P' : self.spawn_tet,
+                        ';' : game.new_line,
+                        'P' : game.spawn_tet,
                         '<' : game.active_tet.move_tet_west,
                         '>' : game.active_tet.move_tet_east,
                         'v' : game.active_tet.move_tet_south,
                         'V' : game.active_tet.hard_drop}
 
-            if s.isupper() and not (s == 'P' or s == 'V'):
-
+            if s.isupper() and not (s == 'V' or s == 'P'):
                 self.active_tet = self.set_active_tet(s)
-
-            elif len(s) > 1 and not (s == '?s' or s == '?n'):
-
-                for char in s:
-
-                    s = char
-                    
-                    if s.isupper() and not (s == 'P' or s == 'V'):
-
-                        self.active_tet = self.set_active_tet(s)
-                    else:
-
-                        commands[s]()
             else:
                 commands[s]()
 
@@ -139,7 +121,7 @@ class Operator(object):
 
         while True:
 
-            received =  raw_input()
+            received = raw_input()
 
             self.signal_parser(received)
             
