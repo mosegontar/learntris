@@ -40,11 +40,16 @@ class Game(object):
 
         elif self.active_tet.west == 0 and not any(western_edges):
 
-            for index, row in enumerate(self.active_tet.shape):
-                self.active_tet.shape[index].pop(0)
-
             self.active_tet.west = self.active_tet.west - 1
             self.active_tet.east = self.active_tet.east - 1            
+
+            collision = self.check_for_collisions()    
+            if collision:
+                self.move_tet_east()
+                return
+
+            for index, row in enumerate(self.active_tet.shape):
+                self.active_tet.shape[index].pop(0)
 
         else:
 
@@ -56,10 +61,8 @@ class Game(object):
             self.active_tet.west = self.active_tet.west - 1
             self.active_tet.east = self.active_tet.east - 1
 
-            collision = self.check_for_collisions()
-            
+            collision = self.check_for_collisions()    
             if collision:
-                
                 self.move_tet_east()
 
 
@@ -73,11 +76,17 @@ class Game(object):
         
         elif self.active_tet.east >= 10 and not any(eastern_edges):
 
-            for index, row in enumerate(self.active_tet.shape):
-                self.active_tet.shape[index].pop(2)
-
             self.active_tet.west = self.active_tet.west + 1
             self.active_tet.east = self.active_tet.east + 1
+
+            collision = self.check_for_collisions()    
+            if collision:
+                self.move_tet_east()
+                return
+
+            # Shave off the empty, eastern-most row    
+            for index, row in enumerate(self.active_tet.shape):
+                self.active_tet.shape[index].pop(2)
 
         else:
 
@@ -94,7 +103,7 @@ class Game(object):
 
             if collision:
                 self.move_tet_west()
-                
+
 
     def move_tet_south(self):
 
@@ -134,11 +143,15 @@ class Game(object):
     def set_board(self, case_change):
 
         if self.active_tet.shape:
-        
+            
+            # western coordinate is reset to zero if it dropped below zero;
+            # this prevents blocks from showing up in the wrong palce.
+            # If the western coordinate is less than zero, it means that the block is at the west wall
             if self.active_tet.west < 0:
                 self.active_tet.west = 0
                 self.active_tet.east = self.active_tet.west + len(self.active_tet.shape[0])
                 self.get_coordinates()
+
 
             for index, row in enumerate(self.active_tet.shape):
 
@@ -151,13 +164,25 @@ class Game(object):
                     else:
                         pass
 
+                # grid_row = elements currently on grid at the current position in question     
+                # We find the appropriate row on the board to update by adding the index of the active_tet's current row 
+                # to it's southern coordinate. For example, southern coordinates begin at 0, so the first row of a
+                # tet that hasn't dropped yet is index=0 + self.active_tet.south=0, and we can therefore determine which
+                # row on the game grid is being updated.  
                 grid_row = self.grid.board[index+self.active_tet.south][self.active_tet.west:self.active_tet.east]
+                
+                # integrates the cells in the tetramino's row into the grid_row
                 for i, c in enumerate(row):
                     if c:
                         grid_row[i] = c
-                
-                self.grid.board[index+self.active_tet.south][self.active_tet.west:self.active_tet.east] = grid_row
+                    else:
+                        pass
 
+                # cements the updated grid_row array to the appropriate section on the board
+                self.grid.board[index+self.active_tet.south][self.active_tet.west:self.active_tet.east] = grid_row
+        
+        else:
+            pass
 
     def place_tets(self):
 
