@@ -65,6 +65,7 @@ class Operator(object):
         g = "c O P q"
         h = "T ( >>>> > Pq"
         i = "cTvPq"
+        j = "TV Z)<vvvvvvvvvvvvvvvvvv pq"
         
         while True:
 

@@ -72,8 +72,8 @@ class Z_tet(Tetramino):
 
     def __init__(self):
 
-        self.shape = [['r', 'r', None],
-                      [None, 'r', 'r'],
+        self.shape = [['r',  'r',  None],
+                      [None, 'r',   'r'],
                       [None, None, None]]
 
         self.size = len(self.shape)
@@ -87,8 +87,8 @@ class S_tet(Tetramino):
 
     def __init__(self):
 
-        self.shape = [[None, 'g', 'g'],
-                      ['g', 'g', None],
+        self.shape = [[None, 'g',   'g'],
+                      ['g',  'g',  None],
                       [None, None, None]]
 
         self.size = len(self.shape)
@@ -133,8 +133,8 @@ class T_tet(Tetramino):
 
     def __init__(self):
 
-        self.shape = [[None, 'm', None],
-                      ['m', 'm', 'm'],
+        self.shape = [[None,  'm', None],
+                      ['m',   'm',  'm'],
                       [None, None, None]]
 
         self.size = len(self.shape)

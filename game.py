@@ -18,13 +18,19 @@ class Game(object):
         southern_most_row = self.active_tet.south + len(self.active_tet.shape) - 1
         southern_border = self.active_tet.shape[-1]
 
-        if any(self.grid.board[southern_most_row][self.west:self.east]):
+        live_row = self.grid.board[southern_most_row][self.active_tet.west:self.active_tet.east]
+
+        if any(live_row):
 
             if not any(southern_border):
-
                 self.active_tet.shape.pop(-1)
             else:
-                return True
+
+                live_cells = [index for index, cell in enumerate(live_row) if cell]
+                for position in live_cells:
+
+                    if southern_border[position]:
+                        return True
 
     def move_tet_west(self):
 
@@ -123,6 +129,7 @@ class Game(object):
         self.east = self.active_tet.east
         self.south = self.active_tet.south
 
+
     def set_board(self, case_change):
 
         self.get_coordinates()
@@ -145,7 +152,16 @@ class Game(object):
                     else:
                         pass
 
-                self.grid.board[index+self.south][self.west:self.east] = row
+                grid_row = self.grid.board[index+self.south][self.west:self.east]
+                for i, c in enumerate(row):
+                    if c:
+                        grid_row[i] = c
+                
+
+                self.grid.board[index+self.south][self.west:self.east] = grid_row
+
+
+
 
 
     def place_tets(self):
