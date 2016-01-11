@@ -56,22 +56,7 @@ class Operator(object):
 
     def receive_signal(self):
 
-        a = "cT vvvv vvvv vvvv vvvv vvvv vvvv Pq"
-        b = "TVpq"
-        c = "T)V pq"
-        d = "cL >>>> ( >> <>>>< ( > )>>< vvpq"
-        e = "cT <<< Pq"
-        f = "TV Zv Pq"
-        g = "c O P q"
-        h = "T ( >>>> > Pq"
-        i = "cTvPq"
-        j = "TV Z)<V pq"
-        k = "J ) << V Z )(vvvvvvvvvvvvvvvvvvvPq"
-        l = "I)>V I)>V I)>V I)>V T)>vvvv>>>< Pq"
-        m = "T)<<<<<>>>>>>>>>><<<<<<<<V I vvvvvvvvvvvvvvvvvvvv<<<>< O>V O>>>V I)>>>>Vp s pq"
-        n = "?s"
-        o = "?n"
-        
+       
         while True:
 
             received = raw_input()
