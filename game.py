@@ -9,9 +9,6 @@ class Game(object):
 
         self.grid = Grid()
         self.active_tet = Tetramino()
-        self.west  = None
-        self.east  = None
-        self.south = None
 
     def check_for_collisions(self):
 
@@ -134,20 +131,11 @@ class Game(object):
             self.move_tet_south()
 
 
-    def get_coordinates(self):
-
-        self.west = self.active_tet.west
-        self.east = self.active_tet.east
-        self.south = self.active_tet.south
-
-
     def set_board(self, case_change):
-
-        self.get_coordinates()
 
         if self.active_tet.shape:
         
-            if self.west < 0:
+            if self.active_tet.west < 0:
                 self.active_tet.west = 0
                 self.active_tet.east = self.active_tet.west + len(self.active_tet.shape[0])
                 self.get_coordinates()
@@ -163,12 +151,12 @@ class Game(object):
                     else:
                         pass
 
-                grid_row = self.grid.board[index+self.south][self.west:self.east]
+                grid_row = self.grid.board[index+self.active_tet.south][self.active_tet.west:self.active_tet.east]
                 for i, c in enumerate(row):
                     if c:
                         grid_row[i] = c
                 
-                self.grid.board[index+self.south][self.west:self.east] = grid_row
+                self.grid.board[index+self.active_tet.south][self.active_tet.west:self.active_tet.east] = grid_row
 
 
     def place_tets(self):
