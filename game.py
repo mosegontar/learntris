@@ -59,6 +59,7 @@ class Game(object):
             self.active_tet.east = self.active_tet.east - 1
 
             collision = self.check_for_collisions()
+            
             if collision:
                 
                 for index, row in enumerate(self.active_tet.shape):
@@ -102,6 +103,10 @@ class Game(object):
             self.active_tet.west = self.active_tet.west + 1
             self.active_tet.east = self.active_tet.east + 1
 
+            collision = self.check_for_collisions()
+            if collision:
+                self.active_tet.west = self.active_tet.west - 1
+                self.active_tet.east = self.active_tet.east - 1
 
     def move_tet_south(self):
 

@@ -67,6 +67,7 @@ class Operator(object):
         i = "cTvPq"
         j = "TV Z)<V pq"
         k = "J ) << V Z )(vvvvvvvvvvvvvvvvvvvPq"
+        h = "I)>V I)>V I)>V I)>V T)>vvvv>>>< Pq"
         
         while True:
 
