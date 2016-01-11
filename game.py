@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import sys
 from grid import Grid
 from tetraminos import *
 
@@ -15,7 +15,7 @@ class Game(object):
         grid_status = []
         for row_num, row in enumerate(self.grid.board):
             for col, cell in enumerate(row):
-                if cell:
+                if cell and cell.islower():
                     grid_status.append((row_num, col))
         
 
@@ -34,7 +34,7 @@ class Game(object):
 
         western_edges = [cell[0] for cell in self.active_tet.shape]
 
-        if self.active_tet.west == 0 and any(western_edges):
+        if self.active_tet.west <= 0 and any(western_edges):
 
             pass
 
@@ -54,7 +54,6 @@ class Game(object):
         else:
 
             if len(self.active_tet.shape[0]) != self.active_tet.size:
-
                 for index, row in enumerate(self.active_tet.shape):
                     self.active_tet.shape[index].append(None)
 
@@ -74,7 +73,7 @@ class Game(object):
 
             pass
         
-        elif self.active_tet.east >= 10 and not any(eastern_edges):
+        elif self.active_tet.east > 10 and not any(eastern_edges):
 
             self.active_tet.west = self.active_tet.west + 1
             self.active_tet.east = self.active_tet.east + 1
@@ -131,6 +130,7 @@ class Game(object):
 
 
     def hard_drop(self):
+        """Drops tetramino as far south as possible, until floor hit or collision"""
 
         distance_to_floor = 25 - self.active_tet.south - len(self.active_tet.shape)
 
@@ -141,7 +141,9 @@ class Game(object):
 
 
     def set_board(self, case_change):
+        """Updates the state of the game's grid"""
 
+        # passed over if the grid has no Tetraminos on it.
         if self.active_tet.shape:
             
             # western coordinate is reset to zero if it dropped below zero;
@@ -150,8 +152,6 @@ class Game(object):
             if self.active_tet.west < 0:
                 self.active_tet.west = 0
                 self.active_tet.east = self.active_tet.west + len(self.active_tet.shape[0])
-                self.get_coordinates()
-
 
             for index, row in enumerate(self.active_tet.shape):
 

@@ -31,8 +31,11 @@ class Grid(object):
         print self.lines_clear
 
     def step(self):
+
         for index, row in enumerate(self.board):
             if all(row) and row[0] != None:
-                self.board[index] = [None] * 10
+                del self.board[index]
+                self.board.insert(0, [None]*10)
                 self.score += 100
                 self.lines_clear += 1
+ 
