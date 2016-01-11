@@ -13,57 +13,26 @@ class Game(object):
         self.east  = None
         self.south = None
 
-    def check_for_collisions(self, direction):
-        if direction == 'south':
-            grid_status = []
-            for row_num, row in enumerate(self.grid.board):
-                for col, cell in enumerate(row):
-                    if cell:
-                        grid_status.append((row_num, col))
-            
+    def check_for_collisions(self):
 
-            tet_status = []
-            for row_num, row in enumerate(self.active_tet.shape):
-                for col, cell in enumerate(row):
-                    if cell:
-                        r = row_num + self.active_tet.south
-                        c = col + self.active_tet.west
-                        tet_status.append((r, c))
+        grid_status = []
+        for row_num, row in enumerate(self.grid.board):
+            for col, cell in enumerate(row):
+                if cell:
+                    grid_status.append((row_num, col))
+        
 
-            if set(grid_status).intersection(set(tet_status)):
-                return True
+        tet_status = []
 
+        for row_num, row in enumerate(self.active_tet.shape):
+            for col, cell in enumerate(row):
+                if cell:
+                    r = row_num + self.active_tet.south
+                    c = col + self.active_tet.west
+                    tet_status.append((r, c))
 
-            """
-            southern_most_row = self.active_tet.south + len(self.active_tet.shape) - 1
-            southern_border = self.active_tet.shape[-1]
-
-            live_row = self.grid.board[southern_most_row][self.active_tet.west:self.active_tet.east]
-            
-            if len(self.active_tet.shape) != self.active_tet.size:
-                print southern_most_row, 'smr'
-            if any(live_row):
-                if not any(southern_border):
-                    self.active_tet.shape.pop(-1)
-                    self.active_tet.south = self.active_tet.south - 1
-                else:
-                    print 'hi' 
-                    live_cells = [index for index, cell in enumerate(live_row) if cell]
-                    for position in live_cells:
-                        if southern_border[position]:
-                            return True
-                        print southern_most_row, self.active_tet.south
-
-            """
-        elif direction == 'west':
-
-            southern_most_row = self.active_tet.south + len(self.active_tet.shape)
-            western_edges = [cell[0] for cell in self.active_tet.shape]
-
-            live_column = [cell[self.active_tet.west] for cell in self.grid.board[self.active_tet.south:southern_most_row]]
-            if any(live_column):
-
-                return True
+        if set(grid_status).intersection(set(tet_status)):
+            return True
 
     def move_tet_west(self):
 
@@ -89,7 +58,7 @@ class Game(object):
             self.active_tet.west = self.active_tet.west - 1
             self.active_tet.east = self.active_tet.east - 1
 
-            collision = self.check_for_collisions('west')
+            collision = self.check_for_collisions()
             if collision:
                 
                 for index, row in enumerate(self.active_tet.shape):
@@ -100,7 +69,7 @@ class Game(object):
             self.active_tet.west = self.active_tet.west - 1
             self.active_tet.east = self.active_tet.east - 1
             
-            collision = self.check_for_collisions('west')
+            collision = self.check_for_collisions()
             if collision:
                 self.active_tet.west = self.active_tet.west + 1
                 self.active_tet.east = self.active_tet.east + 1
@@ -147,14 +116,14 @@ class Game(object):
             self.active_tet.shape.pop(-1)
             self.active_tet.south = self.active_tet.south + 1
             
-            collision = self.check_for_collisions('south')
+            collision = self.check_for_collisions()
             
             if collision:
                 self.active_tet.south = self.active_tet.south - 1
                 self.active_tet.shape.append([None]*self.active_tet.size)
         else:
             self.active_tet.south = self.active_tet.south + 1    
-            collision = self.check_for_collisions('south')
+            collision = self.check_for_collisions()
             if collision:
                 self.active_tet.south = self.active_tet.south - 1
 
