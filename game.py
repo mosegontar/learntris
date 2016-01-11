@@ -79,22 +79,22 @@ class Game(object):
             self.active_tet.west = self.active_tet.west + 1
             self.active_tet.east = self.active_tet.east + 1
 
-        elif len(self.active_tet.shape[0]) != self.active_tet.size:
+        else:
 
-            for index, row in enumerate(self.active_tet.shape):
-                self.active_tet.shape[index].insert(0, None)
+            if len(self.active_tet.shape[0]) != self.active_tet.size:
+
+                for index, row in enumerate(self.active_tet.shape):
+                    self.active_tet.shape[index].insert(0, None)
             
             self.active_tet.west = self.active_tet.west + 1
             self.active_tet.east = self.active_tet.east + 1
 
-        else:
-            self.active_tet.west = self.active_tet.west + 1
-            self.active_tet.east = self.active_tet.east + 1
 
             collision = self.check_for_collisions()
 
             if collision:
                 self.move_tet_west()
+                
 
     def move_tet_south(self):
 
