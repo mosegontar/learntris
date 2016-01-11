@@ -23,7 +23,6 @@ class Game(object):
         
 
         tet_status = []
-
         for row_num, row in enumerate(self.active_tet.shape):
             for col, cell in enumerate(row):
                 if cell:
@@ -50,10 +49,12 @@ class Game(object):
             self.active_tet.west = self.active_tet.west - 1
             self.active_tet.east = self.active_tet.east - 1            
 
-        elif len(self.active_tet.shape[0]) != self.active_tet.size:
+        else:
 
-            for index, row in enumerate(self.active_tet.shape):
-                self.active_tet.shape[index].append(None)
+            if len(self.active_tet.shape[0]) != self.active_tet.size:
+
+                for index, row in enumerate(self.active_tet.shape):
+                    self.active_tet.shape[index].append(None)
 
             self.active_tet.west = self.active_tet.west - 1
             self.active_tet.east = self.active_tet.east - 1
@@ -62,18 +63,8 @@ class Game(object):
             
             if collision:
                 
-                for index, row in enumerate(self.active_tet.shape):
-                    self.active_tet.shape[index].append(None)                
-                self.active_tet.west = self.active_tet.west + 1
-                self.active_tet.east = self.active_tet.east + 1
-        else:
-            self.active_tet.west = self.active_tet.west - 1
-            self.active_tet.east = self.active_tet.east - 1
-            
-            collision = self.check_for_collisions()
-            if collision:
-                self.active_tet.west = self.active_tet.west + 1
-                self.active_tet.east = self.active_tet.east + 1
+                self.move_tet_east()
+
 
     def move_tet_east(self):
 
@@ -104,9 +95,9 @@ class Game(object):
             self.active_tet.east = self.active_tet.east + 1
 
             collision = self.check_for_collisions()
+
             if collision:
-                self.active_tet.west = self.active_tet.west - 1
-                self.active_tet.east = self.active_tet.east - 1
+                self.move_tet_west()
 
     def move_tet_south(self):
 
@@ -132,9 +123,8 @@ class Game(object):
             if collision:
                 self.active_tet.south = self.active_tet.south - 1
 
-    def hard_drop(self):
 
-        #self.get_coordinates()
+    def hard_drop(self):
 
         distance_to_floor = 25 - self.active_tet.south - len(self.active_tet.shape)
 
@@ -179,9 +169,6 @@ class Game(object):
                         grid_row[i] = c
                 
                 self.grid.board[index+self.south][self.west:self.east] = grid_row
-
-
-
 
 
     def place_tets(self):
