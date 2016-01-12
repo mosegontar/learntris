@@ -11,13 +11,12 @@ class Game(object):
         self.active_tet = Tetramino()
 
     def check_for_collisions(self):
-
+        """Checks for any collisions between active_tet and cemented cells on grid"""
         grid_status = []
         for row_num, row in enumerate(self.grid.board):
             for col, cell in enumerate(row):
                 if cell and cell.islower():
                     grid_status.append((row_num, col))
-        
 
         tet_status = []
         for row_num, row in enumerate(self.active_tet.shape):
@@ -31,6 +30,7 @@ class Game(object):
             return True
 
     def move_tet_west(self):
+        """Attempts to move tetramino one degree westwardd"""
 
         western_edges = [cell[0] for cell in self.active_tet.shape]
 
@@ -40,10 +40,10 @@ class Game(object):
 
         elif self.active_tet.west == 0 and not any(western_edges):
 
-            self.active_tet.west = self.active_tet.west - 1
-            self.active_tet.east = self.active_tet.east - 1            
+            self.active_tet.west -= 1
+            self.active_tet.east -= 1
 
-            collision = self.check_for_collisions()    
+            collision = self.check_for_collisions()
             if collision:
                 self.move_tet_east()
                 return
@@ -57,33 +57,34 @@ class Game(object):
                 for index, row in enumerate(self.active_tet.shape):
                     self.active_tet.shape[index].append(None)
 
-            self.active_tet.west = self.active_tet.west - 1
-            self.active_tet.east = self.active_tet.east - 1
+            self.active_tet.west -= 1
+            self.active_tet.east -= 1
 
-            collision = self.check_for_collisions()    
+            collision = self.check_for_collisions()
             if collision:
                 self.move_tet_east()
 
 
     def move_tet_east(self):
+        """Attempts to move tetramino one degree eastward"""
 
         eastern_edges = [cell[-1] for cell in self.active_tet.shape]
 
         if self.active_tet.east >= 10 and any(eastern_edges):
 
             pass
-        
+
         elif self.active_tet.east > 10 and not any(eastern_edges):
 
-            self.active_tet.west = self.active_tet.west + 1
-            self.active_tet.east = self.active_tet.east + 1
+            self.active_tet.west += 1
+            self.active_tet.east += 1
 
-            collision = self.check_for_collisions()    
+            collision = self.check_for_collisions()
             if collision:
                 self.move_tet_east()
                 return
 
-            # Shave off the empty, eastern-most row    
+            # Shave off the empty, eastern-most row
             for index, row in enumerate(self.active_tet.shape):
                 self.active_tet.shape[index].pop(2)
 
@@ -93,9 +94,9 @@ class Game(object):
 
                 for index, row in enumerate(self.active_tet.shape):
                     self.active_tet.shape[index].insert(0, None)
-            
-            self.active_tet.west = self.active_tet.west + 1
-            self.active_tet.east = self.active_tet.east + 1
+
+            self.active_tet.west += 1
+            self.active_tet.east += 1
 
 
             collision = self.check_for_collisions()
@@ -105,28 +106,29 @@ class Game(object):
 
 
     def move_tet_south(self):
+        """Attempts to move tetramino one degree southward"""
 
         southern_border = self.active_tet.shape[-1]
 
         if self.active_tet.south + len(self.active_tet.shape) > 21 and any(southern_border):
-        
+
             pass
 
         elif self.active_tet.south + len(self.active_tet.shape) == 21 and not any(southern_border):
 
             self.active_tet.shape.pop(-1)
-            self.active_tet.south = self.active_tet.south + 1
+            self.active_tet.south += 1
             
             collision = self.check_for_collisions()
             
             if collision:
-                self.active_tet.south = self.active_tet.south - 1
+                self.active_tet.south -= 1
                 self.active_tet.shape.append([None]*self.active_tet.size)
         else:
-            self.active_tet.south = self.active_tet.south + 1    
+            self.active_tet.south += 1
             collision = self.check_for_collisions()
             if collision:
-                self.active_tet.south = self.active_tet.south - 1
+                self.active_tet.south -= 1
 
 
     def hard_drop(self):

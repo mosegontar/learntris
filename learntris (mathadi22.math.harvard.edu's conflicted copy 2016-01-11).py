@@ -1,41 +1,39 @@
 #!/usr/bin/env python
-"""Operator class to receive signals and control the game play"""
+
 import sys
 
 from game import Game
 
-class Operator(object):
-    """Handles receiving, parsing, and triaging incoming signals"""
 
-    @classmethod
-    def display(cls):
-        """Cements any existing tetraminos to the board and prints state of board"""
+class Operator(object):
+
+    def display(self):
+
         game.set_board('lower')
+
         game.grid.draw_board()
 
-    @classmethod
-    def spawn(cls):
-        """Place a new tetramino on the board"""
+    def spawn(self):
+
         game.set_board('upper')
         game.grid.draw_board()
 
-    @classmethod
-    def new_line(cls):
-        """prints new line"""
+    def new_line(self):
         print
 
     def signal_parser(self, signal):
-        """Parses signals received from receive_signal()"""
+        
         if signal == '?s' or signal == '?n':
             signals = [signal]
 
         else:
             signals = [s for s in signal if s != ' ']
 
-        for sig in signals:
+        for s in signals:
+
             commands = {'p' : self.display,
-                        'q' : sys.exit,
-                        'g' : game.grid.given,
+                        'q' : sys.exit, 
+                        'g' : game.grid.given, 
                         'c' : game.grid.clear,
                         '?s': game.grid.show_score,
                         '?n': game.grid.show_clear_lines,
@@ -50,19 +48,35 @@ class Operator(object):
                         'v' : game.move_tet_south,
                         'V' : game.hard_drop}
 
-            if sig.isupper() and not (sig == 'V' or sig == 'P'):
-                game.active_tet = game.set_active_tet(sig)
+            if s.isupper() and not (s == 'V' or s == 'P'):
+                game.active_tet = game.set_active_tet(s)
             else:
-                commands[sig]()
+                commands[s]()
 
 
     def receive_signal(self):
-        """receive commands from standard input"""
-        while True:
-            received = raw_input()
-            self.signal_parser(received)
+
+        a = "cT vvvv vvvv vvvv vvvv vvvv vvvv Pq"
+        b = "TVpq"
+        c = "T)V pq"
+        d = "cL >>>> ( >> <>>>< ( > )>>< vvpq"
+        e = "cT <<< Pq"
+        f = "TV Zv Pq"
+        g = "c O P q"
+        h = "T ( >>>> > Pq"
+        i = "cTvPq"
+        j = "TV Z)<vvvvvvvvvvvvvvvvvv pq"
+        k = "J ) << V Z )(vvvvvvvvvvvvvvvvvPq"
+        
+        #while True:
+
+        received = k#raw_input()
+
+        self.signal_parser(received)
+        
+
 
 if __name__ == '__main__':
     game = Game()
-    learntris = Operator()
-    learntris.receive_signal()
+    main = Operator()
+    main.receive_signal()

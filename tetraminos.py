@@ -29,7 +29,7 @@ class Tetramino(object):
         self.shape = [list(row) for row in zip(*self.shape)[::-1]]
 
     def set_coordinates(self):
-
+        """Set the starting coordinates of the tetramino"""
         self.west = (10 - self.size) / 2
         self.east = self.west + self.size
         self.south = 0
@@ -47,7 +47,6 @@ class I_tet(Tetramino):
                       [None, None, None, None]]
 
         self.size = len(self.shape)
-
         coordinates = self.set_coordinates()
         self.west  = coordinates[0]
         self.east  = coordinates[1]
@@ -62,7 +61,6 @@ class O_tet(Tetramino):
                       ['y', 'y']]
 
         self.size = len(self.shape)
-
         coordinates = self.set_coordinates()
         self.west = coordinates[0]
         self.east = coordinates[1]
@@ -77,7 +75,6 @@ class Z_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
-
         coordinates = self.set_coordinates()
         self.west = coordinates[0]
         self.east = coordinates[1]
@@ -92,7 +89,6 @@ class S_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
-
         coordinates = self.set_coordinates()
         self.west = coordinates[0]
         self.east = coordinates[1]
@@ -108,7 +104,6 @@ class J_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
-
         coordinates = self.set_coordinates()
         self.west = coordinates[0]
         self.east = coordinates[1]
@@ -123,7 +118,6 @@ class L_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
-
         coordinates = self.set_coordinates()
         self.west = coordinates[0]
         self.east = coordinates[1]
@@ -138,7 +132,6 @@ class T_tet(Tetramino):
                       [None, None, None]]
 
         self.size = len(self.shape)
-
         coordinates = self.set_coordinates()
         self.west = coordinates[0]
         self.east = coordinates[1]
